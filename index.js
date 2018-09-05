@@ -10,6 +10,7 @@ import {name as appName} from './app.json';
 import DrawerMenu from './DrawerMenu';
 
 import { StackNavigator, DrawerNavigator } from 'react-navigation';
+import TakePicture from './TakePicture';
 
 // AppRegistry.registerComponent(appName, () => App);
 
@@ -19,6 +20,7 @@ const stackNavigator = StackNavigator({
     // Bookmark: {screen: BookmarkView },
     // Calendar: {screen: CalendarView},
     // Client: {screen: ClientView},
+    CameraScreen: {screen: TakePicture}, 
  }, {
     headerMode: 'none'
  });
