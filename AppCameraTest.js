@@ -97,9 +97,12 @@ export default class CameraScreen extends React.Component {
 
   takePicture = async function() {
     if (this.camera) {
-      this.camera.takePictureAsync().then(data => {
-        console.log('data: ', data);
-      });
+      const options = { quality: 0.5, width: 480, fixOrientation: false, base64: true }
+      this.camera.takePictureAsync(options)
+        .then(data => {
+          console.log('data: ', data);
+          this.props.navigation.goBack();
+        });
     }
   };
 

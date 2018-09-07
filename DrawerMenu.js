@@ -22,19 +22,19 @@ const uiTheme = {
         primaryColor: COLOR.green500,
         accentColor: COLOR.pink500,
       },
-    toolbar: {
-        container: {
-            height: 50,
-            paddingTop: 0,
-            backgroundColor: '#1cbb9b', 
+    // toolbar: {
+    //     container: {
+    //         height: 50,
+    //         paddingTop: 0,
+    //         backgroundColor: '#1cbb9b', 
 
-            shadowColor: 'transparent',
-            shadowOffset: { width: 0, height: 0 },
-            shadowOpacity: 0,
-            shadowRadius: 0,
-            elevation: 0,
-        },
-    },
+    //         shadowColor: 'transparent',
+    //         shadowOffset: { width: 0, height: 0 },
+    //         shadowOpacity: 0,
+    //         shadowRadius: 0,
+    //         elevation: 0,
+    //     },
+    // },
     drawerHeaderAccount: {
         container: {
             backgroundColor: '#1cbb9b'
@@ -72,6 +72,17 @@ export default class DrawerMenu extends Component {
                     leftElement="arrow-back"
                     onLeftElementPress={() => this.props.navigation.navigate('DrawerClose')}
                     centerElement=""
+                    style={
+                        {height: 50,
+                        paddingTop: 0,
+                        backgroundColor: '#1cbb9b', 
+            
+                        shadowColor: 'transparent',
+                        shadowOffset: { width: 0, height: 0 },
+                        shadowOpacity: 0,
+                        shadowRadius: 0,
+                        elevation: 0,
+                    }}
                 />
                 <View style={styles.container}>
                     <Drawer>

@@ -12,6 +12,12 @@ import DrawerMenu from './DrawerMenu';
 import { StackNavigator, DrawerNavigator } from 'react-navigation';
 import TakePicture from './TakePicture';
 
+import AppCameraTest from './AppCameraTest'
+
+import Tcp from './Tcp'
+
+import Facc from './Facc'
+
 // AppRegistry.registerComponent(appName, () => App);
 
 const stackNavigator = StackNavigator({
@@ -20,7 +26,8 @@ const stackNavigator = StackNavigator({
     // Bookmark: {screen: BookmarkView },
     // Calendar: {screen: CalendarView},
     // Client: {screen: ClientView},
-    CameraScreen: {screen: TakePicture}, 
+    // CameraScreen: {screen: AppCameraTest}, 
+    // CameraScreen: {screen: Facc}, 
  }, {
     headerMode: 'none'
  });
@@ -29,17 +36,20 @@ const stackNavigator = StackNavigator({
     Home: {
       screen: App,
     },
+    CameraScreen: {
+      screen: Facc
+    }, 
     Stack: {
       screen: stackNavigator
     }
     }, {
       contentComponent: DrawerMenu,
       contentOptions: {
-      activeTintColor: '#e91e63',
-      style: {
-        flex: 1,
-        paddingTop: 15,
-      }
+      // activeTintColor: '#e91e63',
+      // style: {
+      //   flex: 1,
+      //   paddingTop: 15,
+      // }
     }
  });
 

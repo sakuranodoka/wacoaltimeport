@@ -16,6 +16,8 @@ import Container from './Container';
 
 import PropTypes from 'prop-types';
 
+import Asyncs from './Asyncs'
+
 import Map from './Components/Map'
 
 import Interactable from 'react-native-interactable'
@@ -114,7 +116,11 @@ export default class App extends Component {
 
             {/* <CollapsingHeaderWithScroll /> */}
 
-            <Collapsed />
+            <Map />
+
+            <Asyncs/>
+
+            {/* <Collapsed /> */}
 
             {/* <TakePicture /> */}
 
