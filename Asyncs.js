@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlatList, ActivityIndicator, Text, View  } from 'react-native';
+import { FlatList, ActivityIndicator, Text, View, PermissionsAndroid } from 'react-native';
 
 export default class Asyncs extends Component {
 
@@ -37,16 +37,14 @@ export default class Asyncs extends Component {
 
     return(
       <View style={{flex: 1, paddingTop:20}}>
-        {
-          this.state.dataSource.map((item) => {
-            return (<Text>{item.title}, {item.releaseYear}</Text>)
-          })
-        }
-        {/* <FlatList
+        {/* {
+          this.state.dataSource.map((item) => <Text>{item.title}, {item.releaseYear}</Text>)
+        } */}
+        <FlatList
           data={this.state.dataSource}
           renderItem={({item}) => <Text>{item.title}, {item.releaseYear}</Text>}
           keyExtractor={(item, index) => index}
-        /> */}
+        />
       </View>
     );
   }

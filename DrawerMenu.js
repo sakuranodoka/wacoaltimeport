@@ -46,9 +46,6 @@ const uiTheme = {
             margin: 0,
         }
     },
-
-    
-
 };
 
 export default class DrawerMenu extends Component {
@@ -72,8 +69,8 @@ export default class DrawerMenu extends Component {
                     leftElement="arrow-back"
                     onLeftElementPress={() => this.props.navigation.navigate('DrawerClose')}
                     centerElement=""
-                    style={
-                        {height: 50,
+                    style={{
+                        container:{height: 50,
                         paddingTop: 0,
                         backgroundColor: '#1cbb9b', 
             
@@ -82,7 +79,7 @@ export default class DrawerMenu extends Component {
                         shadowOpacity: 0,
                         shadowRadius: 0,
                         elevation: 0,
-                    }}
+                    }}}
                 />
                 <View style={styles.container}>
                     <Drawer>
@@ -114,8 +111,32 @@ export default class DrawerMenu extends Component {
                         </Drawer.Header>
                         <Drawer.Section
                             divider
+                            title="Place"
                             items={[
-                                { icon: 'bookmark-border', value: 'บันทึกเวลาเข้า' },
+                                { 
+                                    icon: 'add', value: 'เพิ่มสถานที่', 
+                                    onPress: ((e) => { 
+                                        this.props.navigation.navigate('Place')
+                                    }) 
+                                },
+                                // { icon: 'settings', value: 'Settings' },
+                            ]}
+                            // onPress={(e) => {
+                            //     console.log('imagepathFS', 'eeeff') 
+                            //     this.props.navigation.navigate('DrawerClose')
+                            // }}
+                        />
+                        <Drawer.Section
+                            divider
+                            title="Recording"
+                            items={[
+                                { 
+                                    icon: 'bookmark-border', value: 'บันทึกเวลาเข้า', 
+                                    onPress: ((e) => { 
+                                        this.props.navigation.navigate('PlaceList', { action : 'check-in'})
+                                    })
+                                },
+                                // { icon: 'bookmark-border', value: 'บันทึกเวลาเข้า' },
                                 { icon: 'today', value: 'บันทึกเวลาออก' },
                                 { icon: 'people', value: 'ประวัติการบันทึกเวลา' },
                                 // { icon: 'today', value: 'Calendar', active: true },
