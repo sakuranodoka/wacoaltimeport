@@ -62,6 +62,8 @@ import Place from './Components/Place'
 
 import PlaceList from './Components/Place/list.js'
 
+import Attendance from './Components/Attendance'
+
 const stackPlace = StackNavigator(
     {
         'Info' : {
@@ -81,11 +83,14 @@ const stackPlace = StackNavigator(
     }, 
 )
 
-var stackLi = StackNavigator(
+var AttendenceStack = StackNavigator(
     {
         'Info' : {
-            screen: Place
+            screen: Attendance
         }, 
+        'PlaceList': {
+            screen: PlaceList
+        }
     }, 
     { 
         headerMode: 'none', 
@@ -107,9 +112,12 @@ var stackLi = StackNavigator(
         'Place' : {
             screen: stackPlace, 
         },
-        'PlaceList' : {
-            screen: PlaceList
-        }
+        'AttendanceStack' : {
+            screen: AttendenceStack, 
+        },
+        // 'PlaceList' : {
+        //     screen: PlaceList
+        // }
     }, {
         // initialRouteName: 'Home',
         contentComponent: DrawerMenu,

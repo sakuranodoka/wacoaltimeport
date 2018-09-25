@@ -38,7 +38,7 @@ export default class ToolbarComponent extends Component {
                     leftElement="arrow-back"
                     // onLeftElementPress={() => { this.props.containers.props.navigation.navigate('DrawerOpen')} }
                     onLeftElementPress={() => { this.props.containers.props.navigation.goBack(null)} }
-                    centerElement="เลือกสถานที่"
+                    centerElement={this.props.title ? this.props.title : 'Application'}
                     searchable={{
                         autoFocus: true,
                         placeholder: 'Search',

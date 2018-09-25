@@ -133,7 +133,7 @@ export default class DrawerMenu extends Component {
                                 { 
                                     icon: 'bookmark-border', value: 'บันทึกเวลาเข้า', 
                                     onPress: ((e) => { 
-                                        this.props.navigation.navigate('PlaceList', { action : 'check-in'})
+                                        this.props.navigation.navigate('AttendanceStack', { action : 'check-in'})
                                     })
                                 },
                                 // { icon: 'bookmark-border', value: 'บันทึกเวลาเข้า' },
