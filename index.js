@@ -8,57 +8,11 @@ import DrawerMenu from './DrawerMenu';
 
 import { StackNavigator, DrawerNavigator } from 'react-navigation';
 
+import React from 'react';
+
 import CameraView from './Components/Camera'
 
 import Place from './Components/Place'
-
-// const transitionConfig = () => {
-//     return {
-//         transitionSpec: {
-//         duration: 750,
-//         easing: Easing.out(Easing.poly(4)),
-//         timing: Animated.timing,
-//         useNativeDriver: true,
-//         },
-//         screenInterpolator: sceneProps => {
-//             const { position, layout, scene, index, scenes } = sceneProps
-//             const toIndex = index
-//             const thisSceneIndex = scene.index
-//             const height = layout.initHeight
-//             const width = layout.initWidth
-
-//             const translateX = position.interpolate({
-//             inputRange: [thisSceneIndex - 1, thisSceneIndex, thisSceneIndex + 1],
-//             outputRange: [width, 0, 0]
-//             })
-
-//             // Since we want the card to take the same amount of time
-//             // to animate downwards no matter if it's 3rd on the stack
-//             // or 53rd, we interpolate over the entire range from 0 - thisSceneIndex
-//             const translateY = position.interpolate({
-//             inputRange: [0, thisSceneIndex],
-//             outputRange: [height, 0]
-//             })
-
-//             const slideFromRight = { transform: [{ translateX }] }
-//             const slideFromBottom = { transform: [{ translateY }] }
-
-//             const lastSceneIndex = scenes[scenes.length - 1].index
-
-//             // Test whether we're skipping back more than one screen
-//             if (lastSceneIndex - toIndex > 1) {
-//             // Do not transoform the screen being navigated to
-//             if (scene.index === toIndex) return
-//             // Hide all screens in between
-//             if (scene.index !== lastSceneIndex) return { opacity: 0 }
-//             // Slide top screen down
-//             return slideFromBottom
-//             }
-
-//             return slideFromRight
-//         },
-//     }
-// }
 
 import PlaceList from './Components/Place/list.js'
 
@@ -76,17 +30,13 @@ const stackPlace = StackNavigator(
     { 
         headerMode: 'none', 
         initialRouteName: 'Info',
-        // transitionConfig,  
-        // initialRouteParams: { transition: 'fade' },
-        // transitionConfig: TransitionConfig, 
-        // transitionConfig
     }, 
 )
 
 var AttendenceStack = StackNavigator(
     {
         'Info' : {
-            screen: Attendance
+            screen: Attendance, 
         }, 
         'PlaceList': {
             screen: PlaceList
@@ -94,7 +44,12 @@ var AttendenceStack = StackNavigator(
     }, 
     { 
         headerMode: 'none', 
-        initialRouteName: 'Info'
+        // initialRouteName: 'Info', 
+        // navigationOptions: {
+        //     gesturesEnabled: false,
+        // },
+        // transitionConfig: () => animator,
+        
     }
 )
 
@@ -102,6 +57,7 @@ var AttendenceStack = StackNavigator(
     {
         Home: {
             screen: App,
+            // transitionConfig: () => animator,
         },
         // CameraScreen: {
         //     screen: Facc
@@ -112,23 +68,53 @@ var AttendenceStack = StackNavigator(
         'Place' : {
             screen: stackPlace, 
         },
-        'AttendanceStack' : {
-            screen: AttendenceStack, 
-        },
-        // 'PlaceList' : {
-        //     screen: PlaceList
-        // }
+        // 'AttendanceStack' : {
+        //     screen: AttendenceStack, 
+        // },
+        
+        'AttendanceStack' : { 
+            screen:({navigation}) => <AttendenceStack screenProps={navigation}/> , 
+            
+        }, 
+        'PreAttendanceStack' : { screen: AttendenceStack }, 
+
     }, {
         // initialRouteName: 'Home',
+        
         contentComponent: DrawerMenu,
         contentOptions: {
+            // transitionConfig: () => animator,
             // activeTintColor: '#e91e63',
             // style: {
             //   flex: 1,
             //   paddingTop: 15,
             // }
         }, 
-        
  })
+
+ const animator = {
+    transitionSpec: {
+        duration: 300,
+        easing: Easing.out(Easing.poly(4)),
+        timing: Animated.timing,
+    },
+    screenInterpolator: sceneProps => {
+        const { layout, position, scene } = sceneProps
+        const { index } = scene
+
+        const height = layout.initHeight;
+        const translateY = position.interpolate({
+            inputRange: [index - 1, index, index + 1],
+            outputRange: [height, 0, 0],
+        })
+
+        const opacity = position.interpolate({
+            inputRange: [index - 1, index - 0.99, index],
+            outputRange: [0, 1, 1],
+        })
+
+        return { opacity, transform: [{ translateY }] }
+    },
+}
 
  AppRegistry.registerComponent(appName, () => easyRNRoute);

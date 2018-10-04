@@ -1,36 +1,9 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
+import React, {Component} from 'react'
+import { View } from 'react-native'
 
-import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, Image } from 'react-native';
+import { COLOR, ThemeContext, getTheme, Toolbar, Button } from 'react-native-material-ui'
 
-import { StackNavigator, NavigationActions } from 'react-navigation';
-import { COLOR, ThemeContext, getTheme, Button, Toolbar, Drawer, Avatar, Icon, Card, Divider, ActionButton } from 'react-native-material-ui';
-
-import Container from './Container';
-
-import PropTypes from 'prop-types';
-
-import Asyncs from './Asyncs'
-
-import Map from './Components/Map'
-
-import Interactable from 'react-native-interactable'
-
-import CollapsingHeaderWithScroll from './CollapsingHeaderWithScroll';
-
-import Collapsed from './Collapsed';
-import Collapser from './Collapser'
-
-import TakePicture from './TakePicture'
-
-import Facc from './Facc'
-import Maininput from './Components/Stamp/maininput'
+import Authen from './Components/Authen'
 
 const uiTheme = {
   palette: {
@@ -45,43 +18,25 @@ const uiTheme = {
 
 export default class App extends Component {
     
-    constructor(props, context) {
-        super(props, context)
-
-        // console.log('imagepathf', this.props.navigation.getParam('imagepath'))
-        // console.log('imagepathf', this.props.navigation.state.params)
-
-        // console.log('imagepathl', Facc.getFacc())
+    constructor(props) {
+        super(props)
         
-        this.state = {
-        //   active: 'Today',
-          imagepath: Facc.getFacc().path,
-        }
+        this.state = {}
     }
 
     navigate() {
-        console.log('imagepathc', '9696')
         this.props.navigation.navigate('DrawerOpen') // open drawer
     }
 
     nav() {
         this.props.navigation.navigate('CameraScreen', {cb: this.cb})
-        // this.props.navigation.navigate('CameraScreen', {cb: this})
     }
 
     cb(data) {
-        console.log('imagepathc', data.uri)
-        // this.ps = data.uri
-        // this.componentDidMount(data.uri)
-        // this.setState({imagepath: data.uri})
     }
 
     returnData(imagepath) {
-        
         this.state.imagepath = imagepath
-
-        // this.props.navigation.dispatch(NavigationActions.back())
-        // this.setState({imagepath: imagepath});
     }
 
     render() {
@@ -89,17 +44,21 @@ export default class App extends Component {
         return (
             <ThemeContext.Provider value={getTheme(uiTheme)}>
 
-            <Toolbar
-                leftElement="menu"
-                onLeftElementPress={() => this.navigate()}
-                centerElement="Application"
-                searchable={{
-                    autoFocus: true,
-                    placeholder: 'Search',
-                }}
-            />
+                <Toolbar
+                    leftElement="menu"
+                    onLeftElementPress={() => this.navigate()}
+                    centerElement="Application"
+                    searchable={{
+                        autoFocus: true,
+                        placeholder: 'Search',
+                    }}
+                />
 
-            <Button onPress={() => { this.props.navigation.navigate('Place') }} text="Click me" />
+                <View style={{flex:1, justifyContent: 'center', alignContent: 'center', }}>
+                    <Authen />
+                </View>
+                    
+                <Button onPress={() => { this.props.navigation.navigate('AttendanceStack', { title : 'check-out'}) }} text="Click me" />
 
             {/* <Collapser containers={this} /> */}
 
@@ -178,6 +137,6 @@ export default class App extends Component {
             </View> */}
                 
             </ThemeContext.Provider>
-        );
+        )
     }
 }

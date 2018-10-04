@@ -29,8 +29,6 @@ export default class Submit extends Component {
         super(props)
 
         this.state = this.defaults.state
-
-        // this.props.p.
     }
 
     // send(opts) {
@@ -126,10 +124,13 @@ export default class Submit extends Component {
 
         this.setState({ic : "schedule", disabled: true, color: 'gray', text: 'กรุณารอสักครู่ ...'})
 
+        console.log('imagepathname', opts.name)
+
         await axios.post("http://devshopinfo.wacoal.co.th/timeport/api/create/location/", 
                 qs.stringify({
-                    lat: opts.latitude, 
-                    lng: opts.longitude
+                    lat: opts.region.latitude, 
+                    lng: opts.region.longitude, 
+                    name: opts.name,
                 }),
             ).then((response) => {
                 // Handle the JWT response here
@@ -155,7 +156,7 @@ export default class Submit extends Component {
             // <View style={{justifyContent: 'center', flexDirection: 'row', marginTop:25 , alignItems: 'center', flex: 1, }}>
                 
             <Button primary text={this.state.text} 
-                onPress={() => this.swysf(this.props.datas.region)}
+                onPress={() => this.swysf({ region: this.props.datas.region, name: this.props.datas.text})}
                 icon={this.state.ic}
                 disabled={this.state.disabled}
                 // iconSet={'Ionicons'}

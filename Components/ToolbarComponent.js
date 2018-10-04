@@ -29,6 +29,24 @@ export default class ToolbarComponent extends Component {
         super(props)
     }
 
+    onBackPressed = () => {
+        // console.log('imagepathLLSSD', this.props.containers.props.navigation)
+
+        console.log('imagepathendedsd', this.props.navigation)
+
+        if (typeof this.props.containers.props.screenProps === 'undefined') {
+            this.props.containers.props.navigation.goBack(null)
+        } else {
+            this.props.containers.props.screenProps.goBack(null)
+        }
+
+        // this.props.navigation.goBack(null)
+
+        // if (this.props.containers.props.navigation !== null)
+        //     this.props.containers.props.navigation.goBack(null)
+        // else this.props.containers.props.screenProps.goBack(null)
+    }
+
     render() {
     
         return (
@@ -37,7 +55,7 @@ export default class ToolbarComponent extends Component {
                 <Toolbar
                     leftElement="arrow-back"
                     // onLeftElementPress={() => { this.props.containers.props.navigation.navigate('DrawerOpen')} }
-                    onLeftElementPress={() => { this.props.containers.props.navigation.goBack(null)} }
+                    onLeftElementPress={() => this.onBackPressed() }
                     centerElement={this.props.title ? this.props.title : 'Application'}
                     searchable={{
                         autoFocus: true,

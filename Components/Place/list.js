@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {View, Text, Image, ActivityIndicator, StyleSheet} from 'react-native'
 
-import { Card, Icon } from 'react-native-material-ui';
+import { Card, Icon, Divider } from 'react-native-material-ui';
 
 import ToolbarComponent from '../ToolbarComponent.js'
 
@@ -44,25 +44,45 @@ export default class PlaceList extends Component {
         })
     }
 
+    onSelected = (data) => {
+        // console.log('imagepathx', id)
+        
+        this.props.navigation.state.params.callbacks(data)
+
+        this.props.navigation.goBack(null)
+    }
+
     render() {
 
         return (
-            <ToolbarComponent containers={this} title={'บันทึกเวลาเข้า'}>
+            <ToolbarComponent containers={this} title={'เลือกสถานที่'}>
 
-                <View style={styles.conflex}>
+                {/* <View style={styles.conflex}> */}
                     {
                         typeof this.state.dataSource !== 'undefined' ?
                             this.state.dataSource.map((items, index) => {
                                 return ([
-                                    <Card key={index} style={{margin: 7}}>
-                                        <Text style={{color: 'steelblue', alignItems: 'center', textAlign: 'center', margin: 13, fontSize: 18,}}>{items.name}</Text>
-                                    </Card>,
+                                    // <Card key={index} style={{margin: 7}}>
+                                    // <Text key={index} onPress={() => this.onSelected(items)} style={{color: 'steelblue', alignItems: 'center', textAlign: 'center', margin: 13, fontSize: 18,}}>{items.name}</Text>, 
+                                    // <Icon name={'expand-more'} key={index} />, 
+
+                                    <View key={index} style={{ flexDirection: 'row'}}>
+                                        <Text onPress={() => this.onSelected(items)} style={{color: 'steelblue', alignItems: 'center', textAlign: 'center', margin: 13, fontSize: 18,}}>{items.name}</Text>
+                                        <Icon name={'expand-more'} style={{width: 50, marginTop: 13}} />
+                                        {/* <View style={{width: 50, height: 50, backgroundColor: 'steelblue'}} /> */}
+                                    </View>,
+
+                                    <Divider key={index} />, 
+
+
+
+                                    // </Card>,
                                 ])
                             })
-                        : <ActivityIndicator />
+                        : <ActivityIndicator size={'large'} style={{margin: 5}} />
                     }
 
-                </View>
+                {/* </View> */}
             </ToolbarComponent>
         )
     }

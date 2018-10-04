@@ -47,9 +47,10 @@ export default class Place extends Component {
     }
 
     afterSubmit = () => {
-        console.log('imagepathssn', '1234')
         this.props.navigation.goBack(null, { transition: 'horizontal' })
     }
+
+    onChangeTextHandler = (text) => { this.setState({text: text}) }
 
     render() {
         return (
@@ -74,9 +75,7 @@ export default class Place extends Component {
                         source={{uri: this.state.imagepath}}
                         resizeMode="stretch" />
                 
-                    <Edittext text={this.state.text}  />
-
-                    {/* <Timewatch /> */}
+                    <Edittext datas={this.state} onChangeTextHandler={this.onChangeTextHandler} />
 
                     <Submit datas={this.state} callbacks={this.afterSubmit.bind(this)} />
 

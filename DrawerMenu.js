@@ -53,18 +53,21 @@ export default class DrawerMenu extends Component {
         super(props, context);
         this.state = {
             active: 'people',
-          };
-      }
+        }
+    }
     
     _setInfoActive() {
         this.setState({ active: 'info' });
     }
 
+    // redirection() {
+    //     this.props.navigation.navigate('AttendanceStack', { title : 'check-in'})
+    // }
+
     render() {
       return (
         <ThemeContext.Provider value={getTheme(uiTheme)}>
             <Container>
-                {/* <StatusBar backgroundColor="rgba(0, 0, 0, 0.2)" translucent /> */}
                 <Toolbar
                     leftElement="arrow-back"
                     onLeftElementPress={() => this.props.navigation.navigate('DrawerClose')}
@@ -132,12 +135,24 @@ export default class DrawerMenu extends Component {
                             items={[
                                 { 
                                     icon: 'bookmark-border', value: 'บันทึกเวลาเข้า', 
+                                    onPress: (() => {
+                                        // this.props.navigation.setParams({title : 'erer'})
+                                        // this.props.navigation.setParams({title : 'erer', name : 'max'})
+
+                                        // console.log('imagepathllmsx', this.props.navigation.getParam('name'))
+                                        // this.redirection()
+
+                                        this.props.navigation.navigate('AttendanceStack', { title : 'check-in'})
+                                    })
+                                },
+                                { 
+                                    icon: 'today', value: 'บันทึกเวลาออก', 
                                     onPress: ((e) => { 
-                                        this.props.navigation.navigate('AttendanceStack', { action : 'check-in'})
+                                        this.props.navigation.navigate('AttendanceStack', { title : 'check-out'})
                                     })
                                 },
                                 // { icon: 'bookmark-border', value: 'บันทึกเวลาเข้า' },
-                                { icon: 'today', value: 'บันทึกเวลาออก' },
+                                // { icon: 'today', value: 'บันทึกเวลาออก' },
                                 { icon: 'people', value: 'ประวัติการบันทึกเวลา' },
                                 // { icon: 'today', value: 'Calendar', active: true },
                                 // { icon: 'people', value: 'Clients' },
@@ -156,7 +171,7 @@ export default class DrawerMenu extends Component {
         </ThemeContext.Provider>
       );
     }
-  }
+}
 
 const styles = StyleSheet.create({
     container: {
