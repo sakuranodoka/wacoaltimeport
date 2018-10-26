@@ -66,8 +66,8 @@ export default class PlaceList extends Component {
                                     // <Text key={index} onPress={() => this.onSelected(items)} style={{color: 'steelblue', alignItems: 'center', textAlign: 'center', margin: 13, fontSize: 18,}}>{items.name}</Text>, 
                                     // <Icon name={'expand-more'} key={index} />, 
 
-                                    <View key={index} style={{ flexDirection: 'row'}}>
-                                        <Text onPress={() => this.onSelected(items)} style={{color: 'steelblue', alignItems: 'center', textAlign: 'center', margin: 13, fontSize: 18,}}>{items.name}</Text>
+                                    <View key={index} style={{ flexDirection: 'row'}} onTouchStart={() => this.onSelected(items)}>
+                                        <Text onPress={() => null} style={{color: 'steelblue', alignItems: 'center', textAlign: 'center', margin: 13, fontSize: 18,}}>{items.name}</Text>
                                         <Icon name={'expand-more'} style={{width: 50, marginTop: 13}} />
                                         {/* <View style={{width: 50, height: 50, backgroundColor: 'steelblue'}} /> */}
                                     </View>,
