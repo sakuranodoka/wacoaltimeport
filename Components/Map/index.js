@@ -18,6 +18,7 @@ export default class Map extends Component {
         this.state = {
             isMapReady: false,
             region: this.props.region, 
+            x : this.props.region,
         }
     }
 
@@ -47,84 +48,68 @@ export default class Map extends Component {
 
     componentDidMount() {
 
-        // this.requestPermission()
-
-        // console.log("positionx", "ready")
-
-        // navigator.geolocation.getCurrentPosition(
-        //     (position) => {
-        //         console.log("positionx", "ready")
-        //         this.setState({
-        //             region: {
-        //                 latitude: position.coords.latitude,
-        //                 longitude: position.coords.longitude,
-        //                 latitudeDelta:  0.00922*1.5,
-        //                 longitudeDelta: 0.00421*1.5,
-        //             },
-        //             error: null,
-        //         });
-        //     },
-        //     (error) => this.setState({ error: error.message }),
-        //     { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
-        // );
-        
-        // navigator.geolocation.getCurrentPosition(this.success, this.error, this.options);
-
-        // navigator.geolocation.getCurrentPosition(this.success, this.error);
-
-        // navigator.geolocation.getCurrentPosition(
+        // ฟังก์ชัน อัปเดต Location (สำคัญมาก)
+        // this.watchID = navigator.geolocation.watchPosition(
         //     (position) => {
         //         console.log("positionx", position)
-        //     //   this.setState({
-        //     //     latitude: position.coords.latitude,
-        //     //     longitude: position.coords.longitude,
-        //     //     error: null,
-        //     //   });
-        //     },
-        //     (error) => this.setState({ error: error.message }),
-        //     { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
-        // );
-
-        // let geoOptions = {
-        //     enableHighAccuracy: true,
-        //     distanceFilter: 3,
-        //     timeout: 20000,
-        //     maximumAge: 4000,
-        //     accuracy: 1,
-        // };
-
-        this.watchID = navigator.geolocation.watchPosition(
-            (position) => {
-                console.log("positionx", position)
             
+        //         let region = {
+        //             latitude: position.coords.latitude,
+        //             longitude: position.coords.longitude,
+        //             // latitudeDelta: 0.02, 
+        //             // longitudeDelta: 0.02, 
+        //             // latitudeDelta:  0.00922*1.5,
+        //             // longitudeDelta: 0.00421*1.5
+
+        //             latitudeDelta:  0.003,
+        //             longitudeDelta: 0.003
+        //         }
+
+        //         this.onRegionChange(region)
+        //     }, 
+        //     (error) => {
+        //         console.error('imagepathlrtltk', error)
+        //     }, 
+        //     {timeout: 4000, accuracy: 1, maximumAge: 20000, distanceFilter: 3,}
+        // )
+
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+
                 let region = {
                     latitude: position.coords.latitude,
                     longitude: position.coords.longitude,
                     // latitudeDelta: 0.02, 
                     // longitudeDelta: 0.02, 
-                    latitudeDelta:  0.00922*1.5,
-                    longitudeDelta: 0.00421*1.5
+                    // latitudeDelta:  0.00922*1.5,
+                    // longitudeDelta: 0.00421*1.5
+
+                    latitudeDelta:  0.003,
+                    longitudeDelta: 0.003
                 }
 
+                // this.setState({position});
                 this.onRegionChange(region)
-            }, 
-            (error) => {
-                console.error('imagepathlrtltk', error)
-            }, 
-            // {enableHighAccuracy: true, timeout: 4000,}
+            },
+            (error) => alert(JSON.stringify(error)),
             {timeout: 4000, accuracy: 1, maximumAge: 20000, distanceFilter: 3,}
-        )
+        );
     }
 
     onRegionChange(region) {
-        // console.log("imagepath", "position has changed")
+        // console.log("imagepathXXY", "position has changed", region)
+
         this.setState({region: region})
 
-        this.props.onLocationChanged(region)
+        this.props.onLocationChanged(this.state.region)
     }
 
+    // regRef(region) {
+    //     console.log("imagepathXXZ", "position has changed", region)
+    // }
+
     componentWillUnmount() {
-        navigator.geolocation.clearWatch(this.watchID)
+        // navigator.geolocation.clearWatch(this.watchID)
     }
 
     render() {
@@ -134,15 +119,31 @@ export default class Map extends Component {
                 region={this.state.region}
                 onLayout={this.onMapLayout}
                 loadingEnabled={true} 
-                zoomLevel={18}
+                zoomLevel={7}
                 rotateEnabled={false}
+
+                // onRegionChange={this.regRef}
                 // followUserLocation={true}
                 // onRegionChange={this.onRegionChange.bind(this)}
             >
-                <Marker
+                <Marker 
+                    draggable 
+                    coordinate={this.state.region}
+                    // onDragEnd={(e) => this.setState({ region: e.nativeEvent.coordinate })}
+                    onDragEnd={(e) => {
+                        let region = e.nativeEvent.coordinate
+                        region.latitudeDelta = 0.003
+                        region.longitudeDelta = 0.003
+                        this.setState({region: region})
+
+                        this.props.onLocationChanged(region)
+                    }}
+                />
+
+                {/* <Marker
                     coordinate={this.state.region}
                     title={"hello"}
-                    description="This is description." />
+                    description="This is description." /> */}
                 
             </MapView>
         );
