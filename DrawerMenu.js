@@ -153,7 +153,12 @@ export default class DrawerMenu extends Component {
                                 },
                                 // { icon: 'bookmark-border', value: 'บันทึกเวลาเข้า' },
                                 // { icon: 'today', value: 'บันทึกเวลาออก' },
-                                { icon: 'people', value: 'ประวัติการบันทึกเวลา' },
+                                { 
+                                    icon: 'people', value: 'ประวัติการบันทึกเวลา', 
+                                    onPress: ((e) => { 
+                                        this.props.navigation.navigate('Timelines', { title : 'timelines'})
+                                    })
+                                },
                                 // { icon: 'today', value: 'Calendar', active: true },
                                 // { icon: 'people', value: 'Clients' },
                             ]}

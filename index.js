@@ -1,5 +1,6 @@
 
 import {AppRegistry, Animated, Easing} from 'react-native';
+
 import App from './App';
 
 import {name as appName} from './app.json';
@@ -17,6 +18,8 @@ import Place from './Components/Place'
 import PlaceList from './Components/Place/list.js'
 
 import Attendance from './Components/Attendance'
+
+import Timelines from './Components/Timelines'
 
 const stackPlace = StackNavigator(
     {
@@ -77,6 +80,10 @@ var AttendenceStack = StackNavigator(
             
         }, 
         'PreAttendanceStack' : { screen: AttendenceStack }, 
+
+        'Timelines' : {
+            screen: Timelines,
+        },
 
     }, {
         // initialRouteName: 'Home',
